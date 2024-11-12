@@ -69,6 +69,8 @@ var timer_start = 0
 var timer_render = 0
 var timer_depth = 0
 
+var stop_threads : bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if enable == false:
@@ -267,13 +269,15 @@ func create_depth_texture():
 	tf.usage_bits += RenderingDevice.TEXTURE_USAGE_CAN_UPDATE_BIT 
 	tf.usage_bits += RenderingDevice.TEXTURE_USAGE_CAN_COPY_TO_BIT
 	
-	var texture_rd_depth : RID = rd.texture_create(tf, RDTextureView.new(), [depth.get_image().get_data()])
-	var uniform := RDUniform.new()
-	uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
-	uniform.binding = 0
-	uniform.add_id(texture_rd_depth)
-	
-	texture_set = [uniform]
+	var texture_rd_depth : RID
+	if depth.get_image().get_height() * depth.get_image().get_width() == tf.width * tf.height:
+		texture_rd_depth = rd.texture_create(tf, RDTextureView.new(), [depth.get_image().get_data()])
+		var uniform := RDUniform.new()
+		uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
+		uniform.binding = 0
+		uniform.add_id(texture_rd_depth)
+		
+		texture_set = [uniform]
 
 func create_cam_projection_set():
 	# camera_projectiom.x, y, z, w (4 vec-4 values)
@@ -442,7 +446,7 @@ func load_chunck_lods():
 
 ## Continuously updates depth information
 func depth_thread ():
-	while true:
+	while stop_threads == false:
 		if timer_depth > 0.1:
 			timer_depth = 0
 			create_depth_texture()
@@ -459,7 +463,7 @@ var all_chunck_mesh_data_combined : Array[LODChunckMeshData]
 ## Continuously updates geometry
 func update_geometry ():
 	var local_verts_per_obj := PackedInt32Array()
-	while true:
+	while stop_threads == false:
 		if timer_render > 0.2:
 			timer_render = 0
 			local_verts_per_obj.clear()
@@ -566,8 +570,10 @@ func get_chunck_indexes(index : int, lod_depth : int, dead_ends : PackedVector2A
 		if off_screen == false and depth_array.is_empty() == false:
 			var dist_to_cam = (final_mat * c.aabb.get_center()).distance_to(camera_position)
 			var index_of_depth_array = max(0,min(screen_pos.x + (view_port_x * int(screen_pos.y)), view_port_x * view_port_y - 1))
+			var depth_from_array = 0
 			mutex.lock()
-			var depth_from_array = depth_array[index_of_depth_array]
+			if index_of_depth_array < depth_array.size():
+				depth_from_array = depth_array[index_of_depth_array]
 			mutex.unlock()
 			if dist_to_cam > 5 and ignore_depth == false:
 				if dist_to_cam - 5 > depth_from_array:
@@ -650,3 +656,9 @@ func combine_chuncks_lcmd (chuncks : Array[LODChunckMeshData]):
 	if vertices.is_empty() == false:
 		arr_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	return arr_mesh
+
+
+func _exit_tree():
+	stop_threads = true
+	#thread.wait_to_finish()
+	#thread_cs.wait_to_finish()
