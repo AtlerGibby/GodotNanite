@@ -1,0 +1,281 @@
+[gd_scene load_steps=22 format=3 uid="uid://dtvv2wuvorlhw"]
+
+[ext_resource type="Script" path="res://Scripts/GeoStream.gd" id="1_3nf02"]
+[ext_resource type="Material" uid="uid://bxh2ivm2w87nm" path="res://ShadersAndMaterials/debug_vert_colors.material" id="2_h7q0m"]
+[ext_resource type="Material" uid="uid://22f4nqkw3ye5" path="res://ShadersAndMaterials/combined_mesh_material.tres" id="3_pcv7b"]
+[ext_resource type="Shader" path="res://ShadersAndMaterials/cam_depth.gdshader" id="4_shtl8"]
+[ext_resource type="Script" path="res://Scripts/CameraController.gd" id="4_ua1np"]
+[ext_resource type="ArrayMesh" uid="uid://c3110ieqnq4jt" path="res://GeoStream/LodMeshes/armadillo/armadillo_lod_mesh_0.mesh" id="5_2vuok"]
+[ext_resource type="Script" path="res://Scripts/GeoStreamedObject.gd" id="6_3u1jd"]
+[ext_resource type="ArrayMesh" uid="uid://cyjhlm6utudst" path="res://GeoStream/LodMeshes/lucy/lucy_lod_mesh_0.mesh" id="7_gcet6"]
+[ext_resource type="ArrayMesh" uid="uid://x2h22ird3krg" path="res://GeoStream/LodMeshes/godotplush/godotplush_lod_mesh_0.mesh" id="9_qhbww"]
+[ext_resource type="Material" uid="uid://ba5ea1jv4dnfw" path="res://3DModels/godot_plush/godot_plush_mat.tres" id="10_8kxdl"]
+[ext_resource type="ArrayMesh" uid="uid://danq7igimyre7" path="res://GeoStream/LodMeshes/dragon/dragon_lod_mesh_0.mesh" id="10_fwxw3"]
+[ext_resource type="ArrayMesh" uid="uid://8yadhiwrcytt" path="res://GeoStream/LodMeshes/godotplush/godotplush_lod_mesh_1.mesh" id="11_sf2fy"]
+[ext_resource type="ArrayMesh" uid="uid://fn176rtu02tn" path="res://GeoStream/LodMeshes/godotplush/godotplush_lod_mesh_2.mesh" id="12_g04qx"]
+[ext_resource type="ArrayMesh" uid="uid://bi4pcykl1isvi" path="res://GeoStream/LodMeshes/godotplush/godotplush_lod_mesh_3.mesh" id="13_f0mxd"]
+[ext_resource type="ArrayMesh" uid="uid://srg0vgk74331" path="res://GeoStream/LodMeshes/godotplush/godotplush_lod_mesh_4.mesh" id="14_f0b05"]
+[ext_resource type="ArrayMesh" uid="uid://dmqh8reic4cjw" path="res://GeoStream/LodMeshes/godotplush/godotplush_lod_mesh_5.mesh" id="15_lubsj"]
+[ext_resource type="ArrayMesh" uid="uid://c7ge3xu0rf1nx" path="res://GeoStream/LodMeshes/godotplush/godotplush_lod_mesh_6.mesh" id="16_vssp0"]
+
+[sub_resource type="Environment" id="Environment_dy1q4"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_lxa06"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="QuadMesh" id="QuadMesh_68hj2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vpuru"]
+render_priority = 0
+shader = ExtResource("4_shtl8")
+
+[node name="main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dy1q4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, 2.18557e-08, -0.5, 0.433013, 0.5, 0.75, 0.25, -0.866025, 0.433013, 0, 0, 0)
+
+[node name="GeoStream" type="Node3D" parent="." node_paths=PackedStringArray("camera", "depth_cam", "my_geostreamed_objects")]
+script = ExtResource("1_3nf02")
+enable = true
+combine_all_geometry = true
+camera = NodePath("../MainCamera3D")
+depth_cam = NodePath("../SubViewport/DepthCamera3D")
+debug_material = ExtResource("2_h7q0m")
+combined_debug_material = ExtResource("3_pcv7b")
+my_geostreamed_objects = [NodePath("../Armadillo"), NodePath("../Armadillo2"), NodePath("../Armadillo3"), NodePath("../Armadillo4"), NodePath("../Armadillo5"), NodePath("../Armadillo6"), NodePath("../Armadillo7"), NodePath("../Armadillo8"), NodePath("../Armadillo9"), NodePath("../Lucy"), NodePath("../Lucy2"), NodePath("../Lucy3"), NodePath("../Lucy4"), NodePath("../Lucy5"), NodePath("../Lucy6"), NodePath("../Lucy7"), NodePath("../Lucy8"), NodePath("../Lucy9"), NodePath("../Godotplush"), NodePath("../Godotplush2"), NodePath("../Godotplush3"), NodePath("../Godotplush4"), NodePath("../Godotplush5"), NodePath("../Dragon"), NodePath("../Dragon2"), NodePath("../Dragon3"), NodePath("../Dragon4"), NodePath("../Dragon5")]
+depth = SubResource("ViewportTexture_lxa06")
+
+[node name="MainCamera3D" type="Camera3D" parent="."]
+cull_mask = 1048573
+script = ExtResource("4_ua1np")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+fsr_sharpness = 0.0
+positional_shadow_atlas_size = 0
+render_target_update_mode = 4
+
+[node name="DepthCamera3D" type="Camera3D" parent="SubViewport"]
+far = 1000.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/DepthCamera3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, -0.832)
+layers = 2
+mesh = SubResource("QuadMesh_68hj2")
+surface_material_override/0 = SubResource("ShaderMaterial_vpuru")
+
+[node name="Armadillo" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.04, 0, 3.49691e-09, 0, 0.04, 0, -3.49691e-09, 0, -0.04, 4, 0, -10)
+mesh = ExtResource("5_2vuok")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/armadillo.obj"
+
+[node name="Armadillo2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.04, 0, 3.49691e-09, 0, 0.04, 0, -3.49691e-09, 0, -0.04, 13, 0, -10)
+mesh = ExtResource("5_2vuok")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/armadillo.obj"
+
+[node name="Armadillo3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.04, 0, 3.49691e-09, 0, 0.04, 0, -3.49691e-09, 0, -0.04, 22, 0, -10)
+mesh = ExtResource("5_2vuok")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/armadillo.obj"
+
+[node name="Armadillo4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.04, 0, 3.49691e-09, 0, 0.04, 0, -3.49691e-09, 0, -0.04, 4, 0, -19)
+mesh = ExtResource("5_2vuok")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/armadillo.obj"
+
+[node name="Armadillo5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.04, 0, 3.49691e-09, 0, 0.04, 0, -3.49691e-09, 0, -0.04, 13, 0, -19)
+mesh = ExtResource("5_2vuok")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/armadillo.obj"
+
+[node name="Armadillo6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.04, 0, 3.49691e-09, 0, 0.04, 0, -3.49691e-09, 0, -0.04, 22, 0, -19)
+mesh = ExtResource("5_2vuok")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/armadillo.obj"
+
+[node name="Armadillo7" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.04, 0, 3.49691e-09, 0, 0.04, 0, -3.49691e-09, 0, -0.04, 4, 0, -29)
+mesh = ExtResource("5_2vuok")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/armadillo.obj"
+
+[node name="Armadillo8" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.04, 0, 3.49691e-09, 0, 0.04, 0, -3.49691e-09, 0, -0.04, 13, 0, -29)
+mesh = ExtResource("5_2vuok")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/armadillo.obj"
+
+[node name="Armadillo9" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.04, 0, 3.49691e-09, 0, 0.04, 0, -3.49691e-09, 0, -0.04, 22, 0, -29)
+mesh = ExtResource("5_2vuok")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/armadillo.obj"
+
+[node name="Lucy" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.005, 4.37114e-10, 1.91069e-17, 0, -2.18557e-10, 0.005, 4.37114e-10, 0.005, 2.18557e-10, -19, 0, -11)
+mesh = ExtResource("7_gcet6")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/lucy.obj"
+
+[node name="Lucy2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.005, 4.37114e-10, 1.91069e-17, 0, -2.18557e-10, 0.005, 4.37114e-10, 0.005, 2.18557e-10, -10, 0, -11)
+mesh = ExtResource("7_gcet6")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/lucy.obj"
+
+[node name="Lucy3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.005, 4.37114e-10, 1.91069e-17, 0, -2.18557e-10, 0.005, 4.37114e-10, 0.005, 2.18557e-10, -1, 0, -11)
+mesh = ExtResource("7_gcet6")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/lucy.obj"
+
+[node name="Lucy4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.005, 4.37114e-10, 1.91069e-17, 0, -2.18557e-10, 0.005, 4.37114e-10, 0.005, 2.18557e-10, -19, 0, -20)
+mesh = ExtResource("7_gcet6")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/lucy.obj"
+
+[node name="Lucy5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.005, 4.37114e-10, 1.91069e-17, 0, -2.18557e-10, 0.005, 4.37114e-10, 0.005, 2.18557e-10, -10, 0, -20)
+mesh = ExtResource("7_gcet6")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/lucy.obj"
+
+[node name="Lucy6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.005, 4.37114e-10, 1.91069e-17, 0, -2.18557e-10, 0.005, 4.37114e-10, 0.005, 2.18557e-10, -1, 0, -20)
+mesh = ExtResource("7_gcet6")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/lucy.obj"
+
+[node name="Lucy7" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.005, 4.37114e-10, 1.91069e-17, 0, -2.18557e-10, 0.005, 4.37114e-10, 0.005, 2.18557e-10, -19, 0, -30)
+mesh = ExtResource("7_gcet6")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/lucy.obj"
+
+[node name="Lucy8" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.005, 4.37114e-10, 1.91069e-17, 0, -2.18557e-10, 0.005, 4.37114e-10, 0.005, 2.18557e-10, -10, 0, -30)
+mesh = ExtResource("7_gcet6")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/lucy.obj"
+
+[node name="Lucy9" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.005, 4.37114e-10, 1.91069e-17, 0, -2.18557e-10, 0.005, 4.37114e-10, 0.005, 2.18557e-10, -1, 0, -30)
+mesh = ExtResource("7_gcet6")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/lucy.obj"
+
+[node name="Godotplush" type="MeshInstance3D" parent="."]
+transform = Transform3D(-20, 0, 3.01992e-06, 0, 20, 0, -3.01992e-06, 0, -20, -17.6431, 8, -23.9186)
+mesh = ExtResource("9_qhbww")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/godot_plush/godotplush.tres"
+
+[node name="Godotplush2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-20, 0, 3.01992e-06, 0, 20, 0, -3.01992e-06, 0, -20, -9.64314, 8, -23.9186)
+mesh = ExtResource("9_qhbww")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/godot_plush/godotplush.tres"
+
+[node name="Godotplush3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-20, 0, 3.01992e-06, 0, 20, 0, -3.01992e-06, 0, -20, -1.64314, 8, -23.9186)
+mesh = ExtResource("9_qhbww")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/godot_plush/godotplush.tres"
+
+[node name="Godotplush4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-20, 0, 3.01992e-06, 0, 20, 0, -3.01992e-06, 0, -20, 6.35686, 8, -23.9186)
+mesh = ExtResource("9_qhbww")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/godot_plush/godotplush.tres"
+
+[node name="Godotplush5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-20, 0, 3.01992e-06, 0, 20, 0, -3.01992e-06, 0, -20, 14.3569, 8, -23.9186)
+mesh = ExtResource("9_qhbww")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/godot_plush/godotplush.tres"
+
+[node name="Dragon" type="MeshInstance3D" parent="."]
+transform = Transform3D(-10, 0, 1.50996e-06, 0, 10, 0, -1.50996e-06, 0, -10, -17.6431, 17, -29.9186)
+mesh = ExtResource("10_fwxw3")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/dragon.obj"
+
+[node name="Dragon2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-10, 0, 1.50996e-06, 0, 10, 0, -1.50996e-06, 0, -10, -9.6431, 17, -29.9186)
+mesh = ExtResource("10_fwxw3")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/dragon.obj"
+
+[node name="Dragon3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-10, 0, 1.50996e-06, 0, 10, 0, -1.50996e-06, 0, -10, -1.6431, 17, -29.9186)
+mesh = ExtResource("10_fwxw3")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/dragon.obj"
+
+[node name="Dragon4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-10, 0, 1.50996e-06, 0, 10, 0, -1.50996e-06, 0, -10, 6.3569, 17, -29.9186)
+mesh = ExtResource("10_fwxw3")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/dragon.obj"
+
+[node name="Dragon5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-10, 0, 1.50996e-06, 0, 10, 0, -1.50996e-06, 0, -10, 14.3569, 17, -29.9186)
+mesh = ExtResource("10_fwxw3")
+script = ExtResource("6_3u1jd")
+mesh_path = "res://3DModels/dragon.obj"
+
+[node name="GodotplushLodMesh0" type="MeshInstance3D" parent="."]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, -3.64314, 0, 5.1434)
+mesh = ExtResource("9_qhbww")
+surface_material_override/0 = ExtResource("10_8kxdl")
+
+[node name="GodotplushLodMesh1" type="MeshInstance3D" parent="."]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, -2.26238, 0, 5.1434)
+mesh = ExtResource("11_sf2fy")
+surface_material_override/0 = ExtResource("10_8kxdl")
+
+[node name="GodotplushLodMesh2" type="MeshInstance3D" parent="."]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, -0.696961, 0, 5.14051)
+mesh = ExtResource("12_g04qx")
+surface_material_override/0 = ExtResource("10_8kxdl")
+
+[node name="GodotplushLodMesh3" type="MeshInstance3D" parent="."]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 1.10909, 0, 5.11115)
+mesh = ExtResource("13_f0mxd")
+surface_material_override/0 = ExtResource("10_8kxdl")
+
+[node name="GodotplushLodMesh4" type="MeshInstance3D" parent="."]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 2.66817, 0, 5.13238)
+mesh = ExtResource("14_f0b05")
+surface_material_override/0 = ExtResource("10_8kxdl")
+
+[node name="GodotplushLodMesh5" type="MeshInstance3D" parent="."]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 4.25049, 0, 4.98724)
+mesh = ExtResource("15_lubsj")
+surface_material_override/0 = ExtResource("10_8kxdl")
+
+[node name="GodotplushLodMesh6" type="MeshInstance3D" parent="."]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 5.67409, 0, 4.90474)
+mesh = ExtResource("16_vssp0")
+surface_material_override/0 = ExtResource("10_8kxdl")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.4917, -20.6495)
+billboard = 1
+text = "These are the meshes with Chunck LODs set up."
+
+[node name="Label3D2" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.24705, 5.23514)
+billboard = 1
+text = "This is an example of how well GeoStream handles UVs as the model gets simplified."

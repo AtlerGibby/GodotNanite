@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy4cawkowg2ha"]
+
+[ext_resource type="ArrayMesh" uid="uid://cysqdxoseg471" path="res://3DModels/lucy.obj" id="1_f3f8b"]
+
+[node name="Lucy" type="MeshInstance3D"]
+transform = Transform3D(-0.003, 2.62268e-10, 1.14641e-17, 0, -1.31134e-10, 0.003, 2.62268e-10, 0.003, 1.31134e-10, 2, 0, 0)
+gi_mode = 2
+mesh = ExtResource("1_f3f8b")

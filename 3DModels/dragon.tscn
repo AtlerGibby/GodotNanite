@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhw8nnkebs0po"]
+
+[ext_resource type="ArrayMesh" uid="uid://235jvsfw8xjt" path="res://3DModels/dragon.obj" id="1_d4663"]
+
+[node name="Dragon" type="MeshInstance3D"]
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, 0)
+mesh = ExtResource("1_d4663")

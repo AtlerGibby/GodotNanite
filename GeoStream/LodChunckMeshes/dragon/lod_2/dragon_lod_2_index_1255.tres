@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LODChunckMeshData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/lod_chunck_mesh_data.gd" id="1_ksvci"]
+
+[resource]
+script = ExtResource("1_ksvci")
+vertexes = PackedVector3Array(-0.0988462, -0.257573, 0.206394, -0.110554, -0.260768, 0.20589, -0.108651, -0.255066, 0.20615)
+normals = PackedVector3Array(-0.196865, -0.960568, 0.196348, 0.447447, -0.0660042, 0.891871, 0.356736, -0.303176, 0.883643)
+tangents = PackedFloat32Array(-0.972317, 0.16416, -0.166287, 1, -0.434573, -0.887834, 0.151319, 1, -0.413073, -0.899323, -0.143489, 1)
+uvs = PackedVector2Array(0, 0, 0, 0, 0, 0)
+colors = PackedColorArray(0.33, 0.33, 1, 1, 0.33, 0.33, 1, 1, 0.33, 0.33, 1, 1)

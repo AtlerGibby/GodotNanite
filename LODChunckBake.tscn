@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://cen2nbx84dc87"]
+
+[ext_resource type="Script" path="res://Scripts/LODChunckGenerator.gd" id="1_5xr2v"]
+[ext_resource type="ArrayMesh" uid="uid://bk78xr5qsk833" path="res://3DModels/godot_plush/godotplush.tres" id="2_b0wcd"]
+[ext_resource type="Script" path="res://Scripts/GeoStreamedObject.gd" id="3_3337u"]
+[ext_resource type="Script" path="res://Scripts/CameraController.gd" id="4_o72uj"]
+
+[sub_resource type="Environment" id="Environment_8cwbm"]
+
+[node name="LodChunckBake" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8cwbm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, 9.83519e-09, -0.707107, 0.5, 0.707107, 0.5, 0.5, -0.707107, 0.5, 0, 0, 0)
+
+[node name="LODChunckGenerator" type="Node3D" parent="." node_paths=PackedStringArray("mesh_instance_3d", "debug_mesh_instance_3d")]
+script = ExtResource("1_5xr2v")
+enable = true
+lod_generation_enbled = true
+save_whole_lods = true
+mesh_instance_3d = NodePath("../DebugMeshInstance")
+save_lod_chuncks_resource = true
+debug_mesh_instance_3d = NodePath("../DebugMeshInstance")
+debug_type = 2
+debug_chunck_simplification_speed = 3.0
+override_vertex_color_for_debugging = true
+
+[node name="DebugMeshInstance" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
+mesh = ExtResource("2_b0wcd")
+script = ExtResource("3_3337u")
+mesh_path = "res://3DModels/godot_plush/godotplush.tres"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.456928)
+script = ExtResource("4_o72uj")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.24705, 0)
+billboard = 1
+text = "This is the LOD Chunck Baking Scene.
+Play this scene to bake LOD Chuncks.
+You will see progress in the output log."

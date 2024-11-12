@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LODChunckMeshData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/lod_chunck_mesh_data.gd" id="1_fyjv3"]
+
+[resource]
+script = ExtResource("1_fyjv3")
+vertexes = PackedVector3Array(886.735, -137.74, 46.8337, 875.041, -139.224, 49.4084, 886.2, -138.639, 52.8116, 904.406, -152.477, 56.2165, 906.907, -145.334, 23.3448, 893.586, -139.951, 66.3775)
+normals = PackedVector3Array(-0.230854, -0.972783, 0.0199971, 0.394402, -0.807329, 0.438939, -0.500033, -0.786399, -0.362688, -0.867862, -0.339359, -0.362837, 0.165465, -0.856738, 0.488488, 0.00826315, -0.999397, 0.0337359)
+tangents = PackedFloat32Array(1, 0, -1.5259e-05, 1, 1, 0, -1.5259e-05, 1, 1, 0, -1.5259e-05, 1, 1, 0, -1.5259e-05, 1, 1, 0, -1.5259e-05, 1, 1, 0, -1.5259e-05, 1)
+uvs = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+colors = PackedColorArray(0.33, 0.33, 1, 1, 0.33, 0.33, 1, 1, 0.33, 0.33, 1, 1, 0.33, 0.33, 1, 1, 0.33, 0.33, 1, 1, 0.33, 0.33, 1, 1)

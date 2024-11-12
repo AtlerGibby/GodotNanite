@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://cso27nko3pqr6"
+path="res://.godot/imported/DepthComputeShader.glsl-5657013101ffc9f554b0e2dd723337ff.res"
+
+[deps]
+
+source_file="res://ShadersAndMaterials/DepthComputeShader.glsl"
+dest_files=["res://.godot/imported/DepthComputeShader.glsl-5657013101ffc9f554b0e2dd723337ff.res"]
+
+[params]
+

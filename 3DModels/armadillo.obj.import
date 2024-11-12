@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ctydypx65br2b"
+path="res://.godot/imported/armadillo.obj-9be354439fe9b90c0fcb4ecbad160b4f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/armadillo.obj-9be354439fe9b90c0fcb4ecbad160b4f.mesh"]
+
+source_file="res://3DModels/armadillo.obj"
+dest_files=["res://.godot/imported/armadillo.obj-9be354439fe9b90c0fcb4ecbad160b4f.mesh", "res://.godot/imported/armadillo.obj-9be354439fe9b90c0fcb4ecbad160b4f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

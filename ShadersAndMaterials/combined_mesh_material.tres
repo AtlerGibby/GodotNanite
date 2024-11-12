@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://22f4nqkw3ye5"]
+
+[ext_resource type="Shader" path="res://ShadersAndMaterials/combined_mesh.gdshader" id="1_gn7tl"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_gn7tl")
+shader_parameter/metallic = 0.46
+shader_parameter/roughness = 0.3
+shader_parameter/uniform_ta = PackedFloat32Array()
+shader_parameter/uniform_array = PackedFloat32Array()

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dffmuvj7b2ivt"]
+
+[ext_resource type="ArrayMesh" uid="uid://ctydypx65br2b" path="res://3DModels/armadillo.obj" id="1_ywc21"]
+
+[node name="Armadillo" type="MeshInstance3D"]
+transform = Transform3D(-0.04, 0, -3.49691e-09, 0, 0.04, 0, 3.49691e-09, 0, -0.04, 0, 0, 0)
+gi_mode = 2
+mesh = ExtResource("1_ywc21")
