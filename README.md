@@ -40,7 +40,7 @@ And from the other side.
 * Chunk generation can take a long time depending on how complex your mesh is. For me it took around 10 minutes to generate the Dragon's LOD chunks.
 
 ## Attribution
-Godot Push by FR3NKD
+Godot Plush by FR3NKD
 
 Lucy, Dragon, and Armadillo by Stanford Computer Graphics Laboratory.
 
