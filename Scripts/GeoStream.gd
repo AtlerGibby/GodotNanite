@@ -351,10 +351,14 @@ func calc_depth():
 	#var group_size = 1 #ceil(pow(my_geostreamed_objects.size(), 1.0/3.0))
 	
 	var push_constant : PackedFloat32Array = PackedFloat32Array()
+	var extra_info_1 : float = 0
+	var extra_info_2 : float = 0
 	#var scene_size := 250
 	#push_constant.push_back(scene_size)
 	push_constant.push_back(view_port_x)#int(get_viewport().size.x / 1))
 	push_constant.push_back(view_port_y)#int(get_viewport().size.y / 1))
+	push_constant.push_back(extra_info_1)
+	push_constant.push_back(extra_info_2)
 	#push_constant.push_back(my_geostreamed_objects.size())
 	#push_constant.push_back(ceil(float(group_size)/8))
 	#push_constant.push_back(chunck_data_size)
@@ -365,7 +369,7 @@ func calc_depth():
 	rd.compute_list_bind_compute_pipeline(compute_list, pipeline)
 	rd.compute_list_bind_uniform_set(compute_list, texture_set_uniform, 0)
 	rd.compute_list_bind_uniform_set(compute_list, data_set_uniform, 1)
-	rd.compute_list_set_push_constant(compute_list, push_constant.to_byte_array(), max(16,push_constant.size() * 4))
+	rd.compute_list_set_push_constant(compute_list, push_constant.to_byte_array(), push_constant.size() * 4)
 	
 	#rd.compute_list_dispatch(compute_list, ceil(float(get_viewport().size.x)/8), ceil(float(get_viewport().size.y)/8), 1)
 	rd.compute_list_dispatch(compute_list, ceil(float(view_port_x)/8), ceil(float(view_port_y)/8), 1)

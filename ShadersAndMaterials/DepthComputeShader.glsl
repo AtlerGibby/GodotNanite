@@ -23,6 +23,8 @@ depth;
 layout(push_constant, std430) uniform Params {
     float screen_size_x;
     float screen_size_y;
+    float extra_info_1;
+    float extra_info_2;
 } params;
 
 layout(r32f, set = 0, binding = 0) uniform restrict readonly image2D depth_image;
